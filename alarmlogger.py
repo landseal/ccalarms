@@ -22,7 +22,7 @@ GPIO.setmode(GPIO.BCM)
 # set pin to input with internal pull up
 GPIO.setup(pin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 # add GPIO event detect on pin
-GPIO.add_event_detect(pin, GPIO.BOTH)
+# GPIO.add_event_detect(pin, GPIO.BOTH, bouncetime=5000)
 
 with open(os.path.join(filepath, filename), 'wb') as csvfile:
     alarmwriter = csv.writer(csvfile)
@@ -31,7 +31,13 @@ with open(os.path.join(filepath, filename), 'wb') as csvfile:
     alarmwriter.writerow(['Time', 'State'])
     # write data
     while True:
+	data = [datetime.now(), GPIO.input(pin)]
+	alarmwriter.writerow(data)	
+	time.sleep(1)
+	"""
         # if an event is detected, add the state of the pin
         if GPIO.event_detected(pin):
+	    print('event detected')
             data = [datetime.now(), GPIO.input(pin)]
             alarmwriter.writerow(data)
+	"""
