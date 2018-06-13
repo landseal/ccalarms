@@ -12,7 +12,8 @@ import RPi.GPIO as GPIO
 
 start = datetime.now()
 print(start)
-filepath = '/media/pi/BC67-8823/CClogger/'
+#filepath = '/media/pi/BC67-8823/CClogger/'
+filepath = ''
 filename = str(start)[:19].replace(':','')+'_alarmlog.csv'
 print(filename)
 
