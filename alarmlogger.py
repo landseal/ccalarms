@@ -34,7 +34,7 @@ with open(os.path.join(filepath, filename), 'wb') as csvfile:
     while True:
 	data = [datetime.now(), GPIO.input(pin)]
 	alarmwriter.writerow(data)	
-	time.sleep(1)
+	time.sleep(10)
 	"""
         # if an event is detected, add the state of the pin
         if GPIO.event_detected(pin):
