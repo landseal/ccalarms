@@ -6,7 +6,7 @@ import os
 alarms = pd.DataFrame()
 
 # walk through ccalarms to get csv files and add them to alarms dataframe
-for root, dirs, files in os.walk('C:\\Users\\jsealand\\Documents\\mystuff\\ccalarms'):
+for root, dirs, files in os.walk('C:\\Users\\jsealand\\Documents\\ccalarms'):
     for i in files:
         if i[-4:] == '.csv':
             print(i)
