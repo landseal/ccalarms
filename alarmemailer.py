@@ -8,7 +8,7 @@ msg = MIMEText('uhoh')
 
 # me == the sender's email address
 # you == the recipient's email address
-me = 'sealandjoshua@gmail.com'
+me = 'joshua.sealand@motivps.com'
 you = 'joshua.sealand@motivps.com'
 msg['Subject'] = 'clipper creek alarm'
 msg['From'] = me
