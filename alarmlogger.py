@@ -36,9 +36,9 @@ with open(os.path.join(filepath, filename), 'wb') as csvfile:
     # write data
     while True:
         # get state of relay
-        time = datetime.now()
+        now = datetime.now()
         state = GPIO.input(pin)
-    	data = [time, state]
+    	data = [now, state]
     	alarmwriter.writerow(data)
 
         # send email if alarm is detected
@@ -49,14 +49,14 @@ with open(os.path.join(filepath, filename), 'wb') as csvfile:
             you = 'joshua.sealand@motivps.com'
             msg['From'] = me
             msg['To'] = me
-            msg['Subject'] = str(time)
+            msg['Subject'] = str(now)
             s = smtplib.SMTP('localhost')
             s.sendmail(me, [you], msg.as_string())
             s.quit()
 
         # wait 10 seconds
     	time.sleep(10)
-        
+
         # # if an event is detected, add the state of the pin
         # if GPIO.event_detected(pin):
 	    # print('event detected')
