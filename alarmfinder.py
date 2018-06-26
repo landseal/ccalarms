@@ -15,10 +15,17 @@ for root, dirs, files in os.walk('C:\\Users\\jsealand\\Documents\\ccalarms'):
             df.index = pd.DatetimeIndex(df.index) # convert index to datetime
             alarms = alarms.append(df)
 
+# open alarm logs file
+f = open('alarmlogs.txt', 'w')
+
 # go through the state column and find all times when it goes from 1 -> 0
 for i in range(1, len(alarms.State)):
     if alarms.State.iloc[i-1] == 1 and alarms.State.iloc[i] == 0:
         print('alarm at ', alarms.index[i])
+        f.write(str(alarms.index[i])+'\n')
+
+# close alarm logs file
+f.close()
 
 # plot the state over time
 alarms.plot()
