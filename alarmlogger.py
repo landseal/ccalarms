@@ -13,13 +13,6 @@ import RPi.GPIO as GPIO
 import smtplib
 from email.mime.text import MIMEText
 
-# set up email stuff
-msg = MIMEText('uhoh')
-me = 'joshua.sealand@motivps.com'
-you = 'joshua.sealand@motivps.com'
-msg['From'] = me
-msg['To'] = me
-
 start = datetime.now()
 print(start)
 #filepath = '/media/pi/BC67-8823/CClogger/'
@@ -42,17 +35,30 @@ with open(os.path.join(filepath, filename), 'wb') as csvfile:
     alarmwriter.writerow(['Time', 'State'])
     # write data
     while True:
-    	data = [datetime.now(), GPIO.input(pin)]
+        # get state of relay
+        time = datetime.now()
+        state = GPIO.input(pin)
+    	data = [time, state]
     	alarmwriter.writerow(data)
-        msg['Subject'] = str(datetime.now())
-        s = smtplib.SMTP('localhost')
-        s.sendmail(me, [you], msg.as_string())
-        s.quit()
+
+        # send email if alarm is detected
+        if state == 0:
+            # set up email stuff
+            msg = MIMEText('uhoh')
+            me = 'joshua.sealand@motivps.com'
+            you = 'joshua.sealand@motivps.com'
+            msg['From'] = me
+            msg['To'] = me
+            msg['Subject'] = str(time)
+            s = smtplib.SMTP('localhost')
+            s.sendmail(me, [you], msg.as_string())
+            s.quit()
+
+        # wait 10 seconds
     	time.sleep(10)
-	"""
-        # if an event is detected, add the state of the pin
-        if GPIO.event_detected(pin):
-	    print('event detected')
-            data = [datetime.now(), GPIO.input(pin)]
-            alarmwriter.writerow(data)
-	"""
+        
+        # # if an event is detected, add the state of the pin
+        # if GPIO.event_detected(pin):
+	    # print('event detected')
+        #     data = [datetime.now(), GPIO.input(pin)]
+        #     alarmwriter.writerow(data)
