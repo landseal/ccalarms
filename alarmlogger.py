@@ -44,12 +44,12 @@ with open(os.path.join(filepath, filename), 'wb') as csvfile:
         # send email if alarm is detected
         if state == 0:
             # set up email stuff
-            msg = MIMEText('uhoh')
+            msg = MIMEText(str(now))
             me = 'joshua.sealand@motivps.com'
             you = 'joshua.sealand@motivps.com'
             msg['From'] = me
             msg['To'] = me
-            msg['Subject'] = str(now)
+            msg['Subject'] = 'uhoh'
             s = smtplib.SMTP('localhost')
             s.sendmail(me, [you], msg.as_string())
             s.quit()
